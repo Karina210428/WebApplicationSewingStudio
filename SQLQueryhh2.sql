@@ -1,0 +1,1 @@
+﻿select dbo.products.Name from dbo.products where idProducts=2

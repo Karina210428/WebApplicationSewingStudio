@@ -1,0 +1,1 @@
+﻿select dbo.materials.Name from dbo.materials where idMaterials=1

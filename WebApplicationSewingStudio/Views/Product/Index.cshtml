@@ -1,0 +1,45 @@
+﻿@using WebApplicationSewingStudio.Models
+@model IEnumerable<WebApplicationSewingStudio.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="cell">
+    <table class="table" id="data">
+        @*<thead>
+            <tr>
+                <th>
+                    <a asp-action="Index" asp-route-sortState="@(Model.SortViewModel.IdSort)"
+                       asp-route-Organization="@(Model.FilterViewModel.SelectedId)">Номер</a>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <a asp-action="Index" asp-route-sortState="@(Model.SortViewModel.NameSort)"
+                       asp-route-Organization="@(Model.FilterViewModel.SelectedId)">Название</a>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <a asp-action="Index" asp-route-sortState="@(Model.SortViewModel.PriceSort)"
+                       asp-route-Organization="@(Model.FilterViewModel.SelectedId)">Тип материала</a>
+                </th>
+            </tr>
+        </thead>*@
+        <tr>
+            <th>@Html.DisplayNameFor(model =>model.Id)</th>
+            <th>@Html.DisplayNameFor(model =>model.Name)</th>
+            <th>@Html.DisplayNameFor(model =>model.Price)</th>
+        </tr>
+        <tbody>
+            @foreach (var product in Model)
+            {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => product.Id)</td>
+                <td>@Html.DisplayFor(modelItem => product.Name)</td>
+                <td>@Html.DisplayFor(modelItem => product.Price)</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
