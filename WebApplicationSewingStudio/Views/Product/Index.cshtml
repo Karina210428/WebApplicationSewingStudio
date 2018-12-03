@@ -1,45 +1,45 @@
 ﻿@using WebApplicationSewingStudio.Models
-@model IEnumerable<WebApplicationSewingStudio.Models.Product>
-
+@model WebApplicationSewingStudio.ViewModels.ProductsViewModels.ProductsViewModel
+@addTagHelper "*,WebApplicationSewingStudio "
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Изделия";
 }
+
+@addTagHelper "*,WebApplicationSewingStudio "
+<h2>Список изделий</h2>
+<p>
+    <a asp-action="Create">Добавить изделие</a>
+</p>
 <div class="cell">
     <table class="table" id="data">
-        @*<thead>
+        <thead>
             <tr>
-                <th>
-                    <a asp-action="Index" asp-route-sortState="@(Model.SortViewModel.IdSort)"
-                       asp-route-Organization="@(Model.FilterViewModel.SelectedId)">Номер</a>
-                </th>
+                @*<th><a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.ProductId)">@Html.DisplayNameFor(model => model.Product.Id)</a></th>*@
+                <th><a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.ProductName)">@Html.DisplayNameFor(model => model.Product.Name)</a></th>
+                <th><a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.ProductPrice)">@Html.DisplayNameFor(model => model.Product.Price)</a></th>
             </tr>
-            <tr>
-                <th>
-                    <a asp-action="Index" asp-route-sortState="@(Model.SortViewModel.NameSort)"
-                       asp-route-Organization="@(Model.FilterViewModel.SelectedId)">Название</a>
-                </th>
-            </tr>
-            <tr>
-                <th>
-                    <a asp-action="Index" asp-route-sortState="@(Model.SortViewModel.PriceSort)"
-                       asp-route-Organization="@(Model.FilterViewModel.SelectedId)">Тип материала</a>
-                </th>
-            </tr>
-        </thead>*@
-        <tr>
-            <th>@Html.DisplayNameFor(model =>model.Id)</th>
-            <th>@Html.DisplayNameFor(model =>model.Name)</th>
-            <th>@Html.DisplayNameFor(model =>model.Price)</th>
-        </tr>
+        </thead>
         <tbody>
-            @foreach (var product in Model)
+            @foreach (var item in Model.Products)
             {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => product.Id)</td>
-                <td>@Html.DisplayFor(modelItem => product.Name)</td>
-                <td>@Html.DisplayFor(modelItem => product.Price)</td>
-            </tr>
+                <tr>
+                   @* <td>@Html.DisplayFor(modelItem => item.Id)</td>*@
+                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Подробно</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                    </td>
+                </tr>
+
             }
         </tbody>
     </table>
+    <page-link page-model="Model.PageViewModel" page-action="Index"
+               @*page-url-name="@(Model.FilterViewModel.SelectedName)"
+               page-url-surname="@(Model.FilterViewModel.SelectedSurname)"
+               page-url-patronymic="@(Model.FilterViewModel.SelectedPatronymic)" *@
+               page-url-sortorder="@(Model.SortViewModel.Current)"></page-link>
+
 </div>

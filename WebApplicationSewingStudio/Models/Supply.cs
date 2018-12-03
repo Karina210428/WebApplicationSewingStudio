@@ -9,7 +9,7 @@ namespace WebApplicationSewingStudio.Models
     {
         public int Id {get;set;}
         public string Supplier { get; set; }
-        public int IdMaterials { get; set; }
+        public int MaterialId { get; set; }
         public int Quantity { get; set; }
         public float Price { get; set; }
         public DateTime Delivery_date { get; set; }

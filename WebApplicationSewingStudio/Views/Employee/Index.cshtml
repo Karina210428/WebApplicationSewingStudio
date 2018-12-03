@@ -1,0 +1,107 @@
+﻿@model WebApplicationSewingStudio.ViewModels.EmployeesViewModels.EmployeesViewModel
+@using  WebApplicationSewingStudio.ViewModels.EmployeesViewModels
+@addTagHelper "*,WebApplicationSewingStudio "
+@{
+    ViewData["Title"] = "Выполнение заказов";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Данные о выполнении заказов</h2>
+
+<p>
+    <a asp-action="Create">Добавить заказ</a>
+</p>
+<form method="get">
+    <div class="form-inline">
+        <label class="control-label">Имя: </label>
+        @Html.TextBox("name", Model.FilterViewModel.SelectedName, htmlAttributes: new { @class = "form-control" })
+
+        <label class="control-label">Фамилия: </label>
+        @Html.TextBox("surname", Model.FilterViewModel.SelectedSurname, htmlAttributes: new { @class = "form-control" })
+
+        <label class="control-label">Отчество: </label>
+        @Html.TextBox("patronymic", Model.FilterViewModel.SelectedPatronymic, htmlAttributes: new { @class = "form-control" })
+        <input type="submit" value="Фильтр" class="btn btn-default" />
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            @*<th>
+                    <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.EmployeeIdSort)">@Html.DisplayNameFor(model => model.EmployeeViewModel.Id)</a>
+                </th>*@
+            <th class="col-md-2">
+                <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.EmployeeNameSort)"
+                   asp-route-name="@(Model.FilterViewModel.SelectedName)"
+                   asp-route-surname="@(Model.FilterViewModel.SelectedSurname)"
+                   asp-route-patronymic="@(Model.FilterViewModel.SelectedPatronymic)" >@Html.DisplayNameFor(model => model.EmployeeViewModel.Name)</a>
+            </th>
+            <th class="col-md-2">
+                <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.EmployeeSurnameSort)" 
+                asp-route-id="@(Model.FilterViewModel.SelectedName)"
+               asp-route-surname="@(Model.FilterViewModel.SelectedSurname)"
+               asp-route-patronymic="@(Model.FilterViewModel.SelectedPatronymic)">@Html.DisplayNameFor(model => model.EmployeeViewModel.Surname)</a>
+            </th>
+            <th class="col-md-2">
+                <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.EmployeePatronymicSort)"
+                 asp-route-id="@(Model.FilterViewModel.SelectedName)"
+               asp-route-surname="@(Model.FilterViewModel.SelectedSurname)"
+               asp-route-patronymic="@(Model.FilterViewModel.SelectedPatronymic)">@Html.DisplayNameFor(model => model.EmployeeViewModel.Patronymic)</a>
+            </th>
+            <th>
+                <a>@Html.DisplayNameFor(model => model.EmployeeViewModel.OrderId)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.EmployeeExecutionStartDateSort)"
+                asp-route-id="@(Model.FilterViewModel.SelectedName)"
+               asp-route-surname="@(Model.FilterViewModel.SelectedSurname)"
+               asp-route-patronymic="@(Model.FilterViewModel.SelectedPatronymic)">@Html.DisplayNameFor(model => model.EmployeeViewModel.Execution_start_date)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.EmployeeDateOfDeliverySort)"
+                asp-route-id="@(Model.FilterViewModel.SelectedName)"
+               asp-route-surname="@(Model.FilterViewModel.SelectedSurname)"
+               asp-route-patronymic="@(Model.FilterViewModel.SelectedPatronymic)">
+                    @Html.DisplayNameFor(model => model.EmployeeViewModel.Date_of_delivery)
+                </a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Employees)
+        {
+            <tr>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Surname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Patronymic)
+                </td>
+                <td>
+                    <a asp-action="DetailsOrder" asp-route-id="@item.OrderId"> @Html.DisplayFor(modelItem => item.OrderId)</a>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Execution_start_date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date_of_delivery)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Подробно</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<page-link page-model="Model.PageViewModel" page-action="Index"
+           page-url-name="@(Model.FilterViewModel.SelectedName)"
+           page-url-surname="@(Model.FilterViewModel.SelectedSurname)"
+           page-url-patronymic="@(Model.FilterViewModel.SelectedPatronymic)" 
+           page-url-sortorder="@(Model.SortViewModel.Current)"></page-link>

@@ -16,7 +16,7 @@ namespace WebApplicationSewingStudio.Models
 
         }
 
-        public DbSet<Employees> Employees { get; set; }
+        public DbSet<Employee> Employees { get; set; }
         public DbSet<Material> Materials { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -25,7 +25,7 @@ namespace WebApplicationSewingStudio.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Employees>(entity =>
+            modelBuilder.Entity<Employee>(entity =>
             {
                 entity.HasKey(e => e.Id)
                     .HasName("PK__employer__73C69839C65602EF");
@@ -42,7 +42,7 @@ namespace WebApplicationSewingStudio.Models
                     .HasColumnName("Execution_start_date")
                     .HasColumnType("date");
 
-                entity.Property(e => e.IdOrder).HasColumnName("idOrder");
+                entity.Property(e => e.OrderId).HasColumnName("idOrder");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -86,7 +86,7 @@ namespace WebApplicationSewingStudio.Models
 
                 entity.ToTable("orders");
 
-                entity.HasIndex(e => e.IdProduct)
+                entity.HasIndex(e => e.ProductId)
                     .HasName("idProducts_idx");
 
                 entity.Property(e => e.Id).HasColumnName("idOrders");
@@ -95,11 +95,13 @@ namespace WebApplicationSewingStudio.Models
                     .HasColumnName("Date_of_order")
                     .HasColumnType("date");
 
+                entity.Property(e => e.Price).HasColumnName("Price").HasColumnType("float");
+
                 entity.Property(e => e.Date_of_sale)
                     .HasColumnName("Date_of_sale")
                     .HasColumnType("date");
 
-                entity.Property(e => e.IdProduct).HasColumnName("idProduct");
+                entity.Property(e => e.ProductId).HasColumnName("idProduct");
             });
 
             modelBuilder.Entity<ProductComposition>(entity =>
@@ -132,7 +134,7 @@ namespace WebApplicationSewingStudio.Models
 
                 entity.ToTable("supply");
 
-                entity.HasIndex(e => e.IdMaterials)
+                entity.HasIndex(e => e.MaterialId)
                     .HasName("idMaterials_idx");
 
                 entity.Property(e => e.Id).HasColumnName("idSupply");
@@ -141,7 +143,11 @@ namespace WebApplicationSewingStudio.Models
                     .HasColumnName("Delivery_date")
                     .HasColumnType("date");
 
-                entity.Property(e => e.IdMaterials).HasColumnName("idMaterials");
+                entity.Property(e => e.Price).HasColumnName("Price").HasColumnType("float");
+
+                entity.Property(e=>e.Quantity).HasColumnName("QuantityMaterials").HasColumnType("int").HasDefaultValueSql("('0')");
+
+                entity.Property(e => e.MaterialId).HasColumnName("idMaterials");
 
                 entity.Property(e => e.Supplier)
                     .IsRequired()

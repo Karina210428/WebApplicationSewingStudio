@@ -53,7 +53,7 @@ namespace WebApplicationSewingStudio
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Product}/{action=Index}/{id?}");
+                    template: "{controller=Supply}/{action=Index}/{id?}");
             });
         }
     }

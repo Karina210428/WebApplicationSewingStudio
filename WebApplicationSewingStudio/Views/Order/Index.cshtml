@@ -1,0 +1,81 @@
+﻿@model WebApplicationSewingStudio.ViewModels.OrdersViewModels.OrdersViewModel
+@addTagHelper "*,WebApplicationSewingStudio "
+@{
+    ViewData["Title"] = "Заказы";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Данных о заказах</h2>
+
+<p>
+    <a asp-action="Create">Добавить заказ</a>
+</p>
+<form method="get">
+    <div class="form-inline">
+        <label class="control-label">Номер заказа: </label>
+        @Html.TextBox("id", Model.FilterViewModel.SelectedId, htmlAttributes: new { @class = "form-control" })
+        <input type="submit" value="Поиск" class="btn btn-default" />
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.OrderId)">  @Html.DisplayNameFor(model => model.OrderViewModel.Id)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.OrderProductName)">  @Html.DisplayNameFor(model => model.OrderViewModel.NameProduct)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.OrderQuantity)"> @Html.DisplayNameFor(model => model.OrderViewModel.Quantity)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.OrderPrice)"> @Html.DisplayNameFor(model => model.OrderViewModel.Price)</a>
+            </th>
+
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.OrderDateOfOrder)"> @Html.DisplayNameFor(model => model.OrderViewModel.Date_of_order)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.OrderDateOfSale)"> @Html.DisplayNameFor(model => model.OrderViewModel.Date_of_sale)</a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Orders)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Date_of_order)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date_of_sale)
+            </td>
+
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Подробно</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<page-link page-model="Model.PageViewModel" page-action="Index"
+           page-url-name="@(Model.FilterViewModel.SelectedId)"
+           page-url-sortorder="@(Model.SortViewModel.Current)"></page-link>
+

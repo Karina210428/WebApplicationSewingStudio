@@ -65,7 +65,7 @@ namespace WebApplicationSewingStudio.Data
                 db.Supplies.Add(
                     new Supply
                     {
-                        IdMaterials = random.Next(1, materialsNumber - 1),
+                        MaterialId = random.Next(1, materialsNumber - 1),
                         Price = random.Next(10, 1000),
                         Quantity = random.Next(10, 1000),
                         Supplier = GenRandomString(voc,10),
@@ -79,7 +79,7 @@ namespace WebApplicationSewingStudio.Data
                 db.Orders.Add(
                     new Order
                     {
-                        IdProduct = random.Next(1,productsNumber-1),
+                        ProductId = random.Next(1,productsNumber-1),
                         Price = random.Next(10, 1000),
                         Quantity = random.Next(10, 1000),
                         Date_of_order = DateTime.Now.Date.AddDays(-id),
@@ -91,12 +91,12 @@ namespace WebApplicationSewingStudio.Data
             for (int id = 1; id <= employersNumber; id++)
             {
                 db.Employees.Add(
-                    new Employees
+                    new Employee
                     {
                         Name = GenRandomString(voc,10),
                         Surname = GenRandomString(voc, 15),
                         Patronymic = GenRandomString(voc, 15),
-                        IdOrder = random.Next(1,ordersNumber-1),
+                        OrderId = random.Next(1,ordersNumber-1),
                         Date_of_delivery = DateTime.Now.Date.AddDays(30),
                         Execution_start_date = DateTime.Now.Date.AddDays(-id)
                     });

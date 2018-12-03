@@ -1,0 +1,71 @@
+﻿@model WebApplicationSewingStudio.ViewModels.SuppliesViewModels.SuppliesVeiwModel
+@addTagHelper "*,WebApplicationSewingStudio "
+@{
+    ViewData["Title"] = "Поставка";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Данные о поставках</h2>
+<p>
+    <a asp-action="Create">Добавить поставку</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            @*<th>
+                <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.SupplyId)">@Html.DisplayNameFor(model => model.SupplyViewModel.Id)</a>
+            </th>*@
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.SupplyName)">@Html.DisplayNameFor(model => model.SupplyViewModel.Supplier)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.SupplyMaterialName)"> @Html.DisplayNameFor(model => model.SupplyViewModel.NameMaterial)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.SupplyQuantity)"> @Html.DisplayNameFor(model => model.SupplyViewModel.QuantityMaterials)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.SupplyPrice)"> @Html.DisplayNameFor(model => model.SupplyViewModel.Price)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.SupplyDeliveryDate)">@Html.DisplayNameFor(model => model.SupplyViewModel.Delivery_date)</a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Supplies)
+        {
+            <tr>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Supplier)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Materials.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Delivery_date)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Подробно</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<page-link page-model="Model.PageViewModel" page-action="Index"
+           @*page-url-name="@(Model.FilterViewModel.SelectedName)"
+           page-url-surname="@(Model.FilterViewModel.SelectedSurname)"
+           page-url-patronymic="@(Model.FilterViewModel.SelectedPatronymic)" *@
+           page-url-sortorder="@(Model.SortViewModel.Current)"></page-link>
