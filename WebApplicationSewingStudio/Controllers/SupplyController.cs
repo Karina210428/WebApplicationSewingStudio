@@ -142,5 +142,13 @@ namespace WebApplicationSewingStudio.Controllers
             }
             return RedirectToAction("index");
         }
+
+        public SewingStudioContext SewingStudioContext
+        {
+            get => default(SewingStudioContext);
+            set
+            {
+            }
+        }
     }
 }

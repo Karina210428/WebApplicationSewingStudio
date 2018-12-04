@@ -25,6 +25,14 @@ namespace WebApplicationSewingStudio.Controllers
             this.db = db;
         }
 
+        public SewingStudioContext SewingStudioContext
+        {
+            get => default(SewingStudioContext);
+            set
+            {
+            }
+        }
+
         public IActionResult Index(string name, string surname, string patronymic, int page = 1, SortState sortOrder = SortState.EmployeeIdAsc )
         {
             int pageSize = 10;

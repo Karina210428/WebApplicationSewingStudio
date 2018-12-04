@@ -11,6 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebApplicationSewingStudio.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using WebApplicationSewingStudio.Data;
 
 namespace WebApplicationSewingStudio
 {
@@ -28,7 +30,10 @@ namespace WebApplicationSewingStudio
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<SewingStudioContext>(options => options.UseSqlServer(connectionString));
+            string connectionStringIdentity = Configuration.GetConnectionString("DefaultConnectionIdentity");
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionStringIdentity));
             services.AddMvc();
+            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationContext>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -53,7 +58,7 @@ namespace WebApplicationSewingStudio
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Supply}/{action=Index}/{id?}");
+                    template: "{controller=Account}/{action=Login}/{id?}");
             });
         }
     }
