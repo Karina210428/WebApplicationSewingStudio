@@ -38,7 +38,8 @@ namespace WebApplicationSewingStudio.Controllers
             if (ModelState.IsValid)
             {
                 var result =
-                    await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                    await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, true);
+                //User user = new User { Email = model.Email, UserName = model.Email};
                 if (result.Succeeded)
                 {
                     // проверяем, принадлежит ли URL приложению
@@ -48,7 +49,7 @@ namespace WebApplicationSewingStudio.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Employee");
+                        return RedirectToAction("Login", "Account");
                     }
                 }
                 else
@@ -65,7 +66,7 @@ namespace WebApplicationSewingStudio.Controllers
         {
             // удаляем аутентификационные куки
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Employee");
+            return RedirectToAction("Login", "Account");
         }
 
         [HttpPost]
@@ -79,8 +80,8 @@ namespace WebApplicationSewingStudio.Controllers
                 if (result.Succeeded)
                 {
                     // установка куки
-                    await _signInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "Employee");
+                    await _signInManager.SignInAsync(user, true);
+                    return RedirectToAction("Login", "Account");
                 }
                 else
                 {

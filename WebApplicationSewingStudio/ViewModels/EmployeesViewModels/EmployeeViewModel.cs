@@ -16,8 +16,10 @@ namespace WebApplicationSewingStudio.ViewModels
         public string Surname { get; set; }
         [Display(Name = "Отчество")]
         public string Patronymic { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [Display(Name = "Дата начала исполнения")]
         public DateTime Execution_start_date { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [Display(Name = "Дата сдачи заказа")]
         public DateTime Date_of_delivery { get; set; }
         [Display(Name = "Код заказа")]

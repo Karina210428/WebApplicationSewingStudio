@@ -1,14 +1,13 @@
 ﻿@model WebApplicationSewingStudio.Models.Order
 
 @{
-    ViewData["Title"] = "DetailsOrder";
+    ViewData["Title"] = "Подробно";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>DetailsOrder</h2>
-
+<h2>Информация о заказе</h2>
 <div>
-    <h4>Order</h4>
+    <h4>Номер заказа:@Html.DisplayFor(model => model.Id)</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -36,7 +35,7 @@
             @Html.DisplayFor(model => model.Date_of_sale)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Product)
+            @Html.DisplayNameFor(model => model.Product.Name)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Product.Name)
@@ -44,6 +43,5 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Вернуться к списку</a>
 </div>

@@ -87,9 +87,13 @@ namespace WebApplicationSewingStudio.Controllers
         [HttpPost]
         public ActionResult Create(Material material)
         {
-            db.Materials.Add(material);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                db.Materials.Add(material);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
         }
 
         [HttpGet]

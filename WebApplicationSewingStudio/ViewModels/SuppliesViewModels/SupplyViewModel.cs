@@ -16,6 +16,7 @@ namespace WebApplicationSewingStudio.ViewModels
         public string NameMaterial { get; set; }
         [Display(Name = "Стоимость материалов")]
         public float Price { get; set; }
+        [DataType(DataType.Date)]
         [Display(Name = "Дата поставки")]
         public DateTime Delivery_date { get; set; }
         [Display(Name = "Количество материалов")]

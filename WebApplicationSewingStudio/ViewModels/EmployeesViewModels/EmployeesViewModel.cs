@@ -11,7 +11,7 @@ namespace WebApplicationSewingStudio.ViewModels.EmployeesViewModels
     {
         public IEnumerable<Employee> Employees { get; set; }
         public EmployeeViewModel EmployeeViewModel { get; set; }
-        public Employee Employee { get; set; }
+       // public Employee Employee { get; set; }
         public PageViewModel PageViewModel { get; set; }
         public SelectList OrdersList { get; set; }
         public FilterViewModel FilterViewModel { get; set; }

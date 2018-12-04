@@ -26,17 +26,10 @@ namespace WebApplicationSewingStudio.Controllers
             this.db = db;
         }
 
-        public SewingStudioContext SewingStudioContext
-        {
-            get => default(SewingStudioContext);
-            set
-            {
-            }
-        }
 
         public IActionResult Index(int page = 1, SortState sortOrder = SortState.ProductCompositionIdAsc)
         {
-            int pageSize = 10;
+            int pageSize = 15;
             IQueryable<ProductComposition> source = db.ProductCompositions.Include(p => p.Material).Include(p => p.Product);
 
             switch (sortOrder)
@@ -118,9 +111,13 @@ namespace WebApplicationSewingStudio.Controllers
         [HttpPost]
         public ActionResult Create(ProductComposition productComposition)
         {
-            db.ProductCompositions.Add(productComposition);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                db.ProductCompositions.Add(productComposition);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
         }
 
         [HttpGet]

@@ -25,17 +25,9 @@ namespace WebApplicationSewingStudio.Controllers
             this.db = db;
         }
 
-        public SewingStudioContext SewingStudioContext
-        {
-            get => default(SewingStudioContext);
-            set
-            {
-            }
-        }
-
         public IActionResult Index(string name, string surname, string patronymic, int page = 1, SortState sortOrder = SortState.EmployeeIdAsc )
         {
-            int pageSize = 10;
+            int pageSize = 15;
             var employees = db.Employees.Include(p => p.Order);
             IQueryable<Employee> source = db.Employees.Include(p => p.Order);
 
@@ -109,8 +101,15 @@ namespace WebApplicationSewingStudio.Controllers
         [HttpGet]
         public ActionResult Edit(int? id)
         {
-            var employee = db.Employees.Find(id);
-            return View(employee);
+            var items = db.Employees.Include(p => p.Order).Where(p => p.Id == id).ToList();
+            var orderList = new SelectList(db.Orders, "Id", "Id", items.First().OrderId);
+            EmployeesViewModel viewModel = new EmployeesViewModel
+            {
+                Employees = items,
+                EmployeeViewModel = employeeViewModel,
+                OrdersList = orderList
+            };
+            return View(viewModel); 
         }
 
         [HttpPost]
@@ -119,12 +118,13 @@ namespace WebApplicationSewingStudio.Controllers
             db.Employees.Update(employee);
             // сохраняем в бд все изменения
             db.SaveChanges();
-            return RedirectToAction("index");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
         public IActionResult Create()
         {
+            
             var orders = new SelectList(db.Orders, "Id", "Id");
             ViewBag.OrderId = orders;
             return View();
@@ -133,10 +133,14 @@ namespace WebApplicationSewingStudio.Controllers
         [HttpPost]
         public ActionResult Create(Employee employee)
         {
-            db.Employees.Add(employee);
-            // сохраняем в бд все изменения
-            db.SaveChanges();
-            return RedirectToAction("index");
+            if (ModelState.IsValid)
+            {
+                db.Employees.Add(employee);
+                // сохраняем в бд все изменения
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
         }
 
         [HttpGet]
@@ -161,7 +165,7 @@ namespace WebApplicationSewingStudio.Controllers
                 db.Employees.Remove(employee);
                 db.SaveChanges();
             }
-            return RedirectToAction("index");
+            return RedirectToAction("Index");
         }
 
         public ViewResult DetailsOrder(int id)

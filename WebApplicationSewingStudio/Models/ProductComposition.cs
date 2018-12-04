@@ -11,10 +11,13 @@ namespace WebApplicationSewingStudio.Models
         [Key]
         [Display(Name = "Код состава")]
         public int Id { get; set; }
+        [Required(ErrorMessage = "Поле должно быть установлено")]
         [Display(Name = "Код продукта")]
         public int ProductId { get; set; }
+        [Required(ErrorMessage = "Поле должно быть установлено")]
         [Display(Name = "Код материала")]
         public int MaterialId { get; set; }
+        [Required(ErrorMessage = "Поле должно быть установлено")]
         [Display(Name = "Количество материала")]
         public int Quantity { get; set; }
         public virtual Product Product { get; set; }

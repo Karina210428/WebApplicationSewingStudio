@@ -4,55 +4,56 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @addTagHelper "*,WebApplicationSewingStudio "
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            @*<th>
-            <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.ProductCompositionId)"> @Html.DisplayNameFor(model => model.ProductCompositionViewModel.Id)</a>
-        </th>*@
-            <th>
-                <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.ProductCompositionProductName)">@Html.DisplayNameFor(model => model.ProductCompositionViewModel.ProductName)</a>
-            </th>
-            <th>
-                <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.ProductCompositionMaterialName)"> @Html.DisplayNameFor(model => model.ProductCompositionViewModel.MaterialName)</a>
-            </th>
-            <th>
-                <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.ProductCompositionQuantity)">@Html.DisplayNameFor(model => model.ProductCompositionViewModel.Quantity)</a>
-            </th>
 
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.ProductCompositions)
-        {
-        <tr>
-            @*<td>
-            @Html.DisplayFor(modelItem => item.Id)
-        </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.Product.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Material.Name)
-            </td>
+<h2>Данные о составах изделий</h2>
+    <p>
+        <a asp-action="Create">Добавить новый состав для изделия</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                @*<th>
+                        <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.ProductCompositionId)"> @Html.DisplayNameFor(model => model.ProductCompositionViewModel.Id)</a>
+                    </th>*@
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.ProductCompositionProductName)">@Html.DisplayNameFor(model => model.ProductCompositionViewModel.ProductName)</a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.ProductCompositionMaterialName)"> @Html.DisplayNameFor(model => model.ProductCompositionViewModel.MaterialName)</a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.ProductCompositionQuantity)">@Html.DisplayNameFor(model => model.ProductCompositionViewModel.Quantity)</a>
+                </th>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Подробно</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
-<page-link page-model="Model.PageViewModel" page-action="Index"
-           @*page-url-name="@(Model.FilterViewModel.SelectedName)"
-           page-url-surname="@(Model.FilterViewModel.SelectedSurname)"
-           page-url-patronymic="@(Model.FilterViewModel.SelectedPatronymic)" *@
-           page-url-sortorder="@(Model.SortViewModel.Current)"></page-link>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ProductCompositions)
+            {
+                <tr>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Material.Name)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <page-link page-model="Model.PageViewModel" page-action="Index"
+               @*page-url-name="@(Model.FilterViewModel.SelectedName)"
+               page-url-surname="@(Model.FilterViewModel.SelectedSurname)"
+               page-url-patronymic="@(Model.FilterViewModel.SelectedPatronymic)" *@
+               page-url-sortorder="@(Model.SortViewModel.Current)"></page-link>

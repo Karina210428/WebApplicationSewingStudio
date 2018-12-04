@@ -67,7 +67,7 @@ namespace WebApplicationSewingStudio.Controllers
             db.Products.Update(product);
             // сохраняем в бд все изменения
             db.SaveChanges();
-            return RedirectToAction("index");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -86,10 +86,14 @@ namespace WebApplicationSewingStudio.Controllers
         [HttpPost]
         public ActionResult Create(Product product)
         {
-            db.Products.Add(product);
-            // сохраняем в бд все изменения
-            db.SaveChanges();
-            return RedirectToAction("index");
+            if (ModelState.IsValid)
+            {
+                db.Products.Add(product);
+                // сохраняем в бд все изменения
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
         }
 
         [HttpGet]
@@ -114,7 +118,7 @@ namespace WebApplicationSewingStudio.Controllers
                 db.Products.Remove(product);
                 db.SaveChanges();
             }
-            return RedirectToAction("index");
+            return RedirectToAction("Index");
         }
 
 

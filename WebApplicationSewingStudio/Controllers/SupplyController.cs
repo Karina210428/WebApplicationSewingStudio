@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +25,48 @@ namespace WebApplicationSewingStudio.Controllers
         {
             NameMaterial = ""
         };
+
+        public async Task<IActionResult> ProceedsForYearAsync(string d = "01.01.2030", int page = 1)
+        {
+            int pageSize = 10;  // количество элементов на странице
+            List<object[]> source = new List<object[]>();
+            using (var command = db.Database.GetDbConnection().CreateCommand())
+            {
+                DbParameter parameter = command.CreateParameter();
+                parameter.DbType = System.Data.DbType.String;
+                parameter.ParameterName = "@d";
+                parameter.Value = d;
+                command.Parameters.Add(parameter);
+                command.CommandText = "my_proc2";
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Connection.Open();
+                DbDataReader reader = await command.ExecuteReaderAsync();
+                if (reader.HasRows)
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        object[] item = new object[reader.FieldCount];
+                        reader.GetValues(item);
+                        source.Add(item);
+                    }
+                }
+                command.Connection.Close();
+            }
+
+            var count = source.Count;
+            var items = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+
+            SuppliesVeiwModel viewModel = new SuppliesVeiwModel
+            {
+                PageViewModel = pageViewModel,
+               // Supplies = source
+            };
+
+            return View(viewModel);
+        }
+
 
         public IActionResult Index(int page = 1, SortState sortOrder = SortState.OrderIdAsc)
         {
@@ -113,9 +156,13 @@ namespace WebApplicationSewingStudio.Controllers
         [HttpPost]
         public ActionResult Create(Supply supply)
         {
-            db.Supplies.Add(supply);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                db.Supplies.Add(supply);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
         }
 
         [HttpGet]

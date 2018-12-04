@@ -1,4 +1,4 @@
-﻿@model WebApplicationSewingStudio.Models.Employee
+﻿@model WebApplicationSewingStudio.ViewModels.EmployeesViewModels.EmployeesViewModel
 
 @{
     ViewData["Title"] = "Редактирование выполнения заказов";
@@ -6,43 +6,41 @@
 }
 
 <h2>Редактирование</h2>
-
-<h4>Выполнение заказа</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Employees.First().Id" />
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="Employees.First().Name" class="control-label"></label>
+                <input asp-for="Employees.First().Name" class="form-control" />
+                <span asp-validation-for="Employees.First().Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Surname" class="control-label"></label>
-                <input asp-for="Surname" class="form-control" />
-                <span asp-validation-for="Surname" class="text-danger"></span>
+                <label asp-for="Employees.First().Surname" class="control-label"></label>
+                <input asp-for="Employees.First().Surname" class="form-control" />
+                <span asp-validation-for="Employees.First().Surname" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Patronymic" class="control-label"></label>
-                <input asp-for="Patronymic" class="form-control" />
-                <span asp-validation-for="Patronymic" class="text-danger"></span>
+                <label asp-for="Employees.First().Patronymic" class="control-label"></label>
+                <input asp-for="Employees.First().Patronymic" class="form-control" />
+                <span asp-validation-for="Employees.First().Patronymic" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OrderId" class="control-label"></label>
-                <select asp-for="OrderId" class="form-control" asp-items="ViewBag.OrderId"></select>
-                <span asp-validation-for="OrderId" class="text-danger"></span>
+                <label asp-for="Employees.First().Order.Id" class="control-label"></label>
+                <select asp-for="Employees.First().Order.Id" class="form-control" asp-items="Model.OrdersList"></select>
+                <span asp-validation-for="Employees.First().Order.Id" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Execution_start_date" class="control-label"></label>
-                <input asp-for="Execution_start_date" class="form-control" />
-                <span asp-validation-for="Execution_start_date" class="text-danger"></span>
+                <label asp-for="Employees.First().Execution_start_date" class="control-label"></label>
+                <input asp-for="Employees.First().Execution_start_date" class="form-control" />
+                <span asp-validation-for="Employees.First().Execution_start_date" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Date_of_delivery" class="control-label"></label>
-                <input asp-for="Date_of_delivery" class="form-control" />
-                <span asp-validation-for="Date_of_delivery" class="text-danger"></span>
+                <label asp-for="Employees.First().Date_of_delivery" class="control-label"></label>
+                <input asp-for="Employees.First().Date_of_delivery" class="form-control" />
+                <span asp-validation-for="Employees.First().Date_of_delivery" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Сохранить" class="btn btn-default" />

@@ -32,9 +32,10 @@ namespace WebApplicationSewingStudio
             services.AddDbContext<SewingStudioContext>(options => options.UseSqlServer(connectionString));
             string connectionStringIdentity = Configuration.GetConnectionString("DefaultConnectionIdentity");
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionStringIdentity));
-            services.AddMvc();
+            
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationContext>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

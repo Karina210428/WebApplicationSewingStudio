@@ -116,7 +116,7 @@ namespace WebApplicationSewingStudio.Controllers
             db.Orders.Update(order);
             // сохраняем в бд все изменения
             db.SaveChanges();
-            return RedirectToAction("index");
+            return RedirectToAction("Index");
         }
 
 
@@ -131,10 +131,14 @@ namespace WebApplicationSewingStudio.Controllers
         [HttpPost]
         public ActionResult Create(Order order)
         {
-            db.Orders.Add(order);
-            // сохраняем в бд все изменения
-            db.SaveChanges();
-            return RedirectToAction("index");
+            if (ModelState.IsValid)
+            {
+                db.Orders.Add(order);
+                // сохраняем в бд все изменения
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
         }
 
         [HttpGet]
@@ -159,7 +163,7 @@ namespace WebApplicationSewingStudio.Controllers
                 db.Orders.Remove(order);
                 db.SaveChanges();
             }
-            return RedirectToAction("index");
+            return RedirectToAction("Index");
         }
     }
 }
