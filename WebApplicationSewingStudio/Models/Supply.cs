@@ -23,7 +23,6 @@ namespace WebApplicationSewingStudio.Models
         public float Price { get; set; }
         [Required(ErrorMessage = "Поле должно быть установлено")]
         [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [Display(Name = "Дата поставки")]
         public DateTime Delivery_date { get; set; }
         public Material Materials { get; set; }

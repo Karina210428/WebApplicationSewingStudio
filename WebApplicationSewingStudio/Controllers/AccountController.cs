@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebApplicationSewingStudio.Models;
 using WebApplicationSewingStudio.ViewModels;
 
@@ -11,87 +15,86 @@ namespace WebApplicationSewingStudio.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
-
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        private SewingStudioContext _context;
+        public AccountController(SewingStudioContext context)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
+            _context = context;
         }
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
-
-        [HttpGet]
-        public IActionResult Login(string returnUrl = null)
-        {
-            return View(new LoginViewModel { ReturnUrl = returnUrl });
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Register(RegisterModel model)
         {
             if (ModelState.IsValid)
             {
-                var result =
-                    await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, true);
-                //User user = new User { Email = model.Email, UserName = model.Email};
-                if (result.Succeeded)
+                User user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+                if (user == null)
                 {
-                    // проверяем, принадлежит ли URL приложению
-                    if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
-                    {
-                        return Redirect(model.ReturnUrl);
-                    }
-                    else
-                    {
-                        return RedirectToAction("Login", "Account");
-                    }
+                    // добавляем пользователя в бд
+                    user = new User { Email = model.Email, Password = model.Password };
+                    Role userRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == "user");
+                    if (userRole != null)
+                        user.Role = userRole;
+
+                    _context.Users.Add(user);
+                    await _context.SaveChangesAsync();
+
+                    await Authenticate(user); // аутентификация
+
+                    return RedirectToAction("Index", "Employee");
                 }
                 else
-                {
-                    ModelState.AddModelError("", "Неправильный логин и (или) пароль");
-                }
+                    ModelState.AddModelError("", "Некорректные логин и(или) пароль");
             }
             return View(model);
         }
-
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = await _context.Users
+                    .Include(u => u.Role)
+                    .FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
+                if (user != null)
+                {
+                    await Authenticate(user); // аутентификация
+
+                    return RedirectToAction("Index", "Employee");
+                }
+                ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+            }
+            return View(model);
+        }
+        private async Task Authenticate(User user)
+        {
+            // создаем один claim
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role?.Name)
+            };
+            // создаем объект ClaimsIdentity
+            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType,
+                ClaimsIdentity.DefaultRoleClaimType);
+            // установка аутентификационных куки
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+        }
+
         public async Task<IActionResult> Logout()
         {
-            // удаляем аутентификационные куки
-            await _signInManager.SignOutAsync();
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login", "Account");
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                User user = new User { Email = model.Email, UserName = model.Email, Name = model.Name, Surname = model.Surname, Patronymic = model.Patronymic };
-                // добавляем пользователя
-                var result = await _userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    // установка куки
-                    await _signInManager.SignInAsync(user, true);
-                    return RedirectToAction("Login", "Account");
-                }
-                else
-                {
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
-                }
-            }
-            return View(model);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplicationSewingStudio.Models;
 
 namespace WebApplicationSewingStudio.ViewModels
 {
@@ -24,5 +25,6 @@ namespace WebApplicationSewingStudio.ViewModels
         public DateTime Date_of_delivery { get; set; }
         [Display(Name = "Код заказа")]
         public int OrderId { get; set; }
+        public Order Order { get; set; }
     }
 }

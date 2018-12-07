@@ -21,12 +21,10 @@ namespace WebApplicationSewingStudio.Models
         public int Quantity { get; set; }
         [Required(ErrorMessage = "Поле должно быть установлено")]
         [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [Display(Name = "Дата заказа")]
         public DateTime Date_of_order { get; set; }
         [Required(ErrorMessage = "Поле должно быть установлено")]
         [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [Display(Name = "Дата сдачи заказа")]
         public DateTime Date_of_sale { get; set; }
         public Product Product { get; set; }

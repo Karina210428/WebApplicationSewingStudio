@@ -127,7 +127,7 @@ namespace WebApplicationSewingStudio.Controllers
         public ActionResult Edit(int? id)
         {
             var items = db.Supplies.Include(p => p.Materials).Where(p => p.Id == id).ToList();
-            var materialList = new SelectList(db.Materials, "Name", "Name", items.First().MaterialId);
+            var materialList = new SelectList(db.Materials, "Id", "Name", items.First().MaterialId);
             SuppliesVeiwModel viewModel = new SuppliesVeiwModel
             {
                 Supplies = items,

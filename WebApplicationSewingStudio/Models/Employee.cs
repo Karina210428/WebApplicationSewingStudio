@@ -24,13 +24,11 @@ namespace WebApplicationSewingStudio.Models
         public int OrderId { get; set; }
         [DataType(DataType.Date)]
         [Required(ErrorMessage = "Поле должно быть установлено")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [Display(Name = "Время начала выполнения заказа")]
         public DateTime Execution_start_date { get; set; }
 
         [DataType(DataType.Date)]
         [Required(ErrorMessage = "Поле должно быть установлено")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [Display(Name = "Время сдачи заказа")]
         public DateTime Date_of_delivery { get; set; }
         public Order Order { get; set; }

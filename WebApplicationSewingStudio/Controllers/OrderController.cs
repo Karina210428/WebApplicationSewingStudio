@@ -82,8 +82,6 @@ namespace WebApplicationSewingStudio.Controllers
             var items = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
             PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
-
-
             OrdersViewModel viewModel = new OrdersViewModel
             {
                 Orders = items,
@@ -100,7 +98,7 @@ namespace WebApplicationSewingStudio.Controllers
         {
             var orders = db.Orders.Include(p => p.Product);
             var items = orders.Where(p => p.Id == id).ToList();
-            var productList = new SelectList(db.Products, "Name", "Name", items.First().ProductId);
+            var productList = new SelectList(db.Products, "Id", "Name", items.First().ProductId);
             OrdersViewModel viewModel = new OrdersViewModel
             {
                 Orders = items,

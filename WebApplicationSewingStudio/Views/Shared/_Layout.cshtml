@@ -31,29 +31,22 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @*@if (User.Identity.IsAuthenticated)
-                    {*@
-                    <li>
-                        <a asp-area="" asp-controller="Employee" asp-action="Index">Выполнение заказов</a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a asp-area="" asp-controller="Organizations" asp-action="Index">Список организаций</a></li>
-                            <li class="divider"></li>
-                            <li><a asp-area="" asp-controller="Organizations" asp-action="InfoForThePeriod">Информация за период</a></li>
-                            <li><a asp-area="" asp-controller="Organizations" asp-action="EnteredForThePeriod">Въехавшие в здание за период</a></li>
-                            <li><a asp-area="" asp-controller="Organizations" asp-action="Debtors">Должники на указанную дату</a></li>
-                        </ul>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>
+                            <a asp-area="" asp-controller="Employee" asp-action="Index">Выполнение заказов</a>
+
                         </li>
                         <li><a asp-area="" asp-controller="Product" asp-action="Index">Изделия</a></li>
                         <li><a asp-area="" asp-controller="Material" asp-action="Index">Материалы</a></li>
                         <li><a asp-area="" asp-controller="ProductComposition" asp-action="Index">Состав изделий</a></li>
                         <li><a asp-area="" asp-controller="Order" asp-action="Index">Заказы</a></li>
                         <li><a asp-area="" asp-controller="Supply" asp-action="Index">Поставка</a></li>
-                    @*}
-                    else
-                    {*@
-                        <li><a asp-area="" asp-controller="Account" asp-action="Register">Регистрация</a></li>
-                        <li><a asp-area="" asp-controller="Account" asp-action="Login">Вход</a></li>
-                    @*}*@
+                        <li><a asp-area="" asp-controller="Account" asp-action="Logout">Выход</a></li>
+                       
+                    }
+
+
                 </ul>
             </div>
         </div>

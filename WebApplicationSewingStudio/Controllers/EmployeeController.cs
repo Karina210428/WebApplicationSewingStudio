@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using WebApplicationSewingStudio.Models;
 using WebApplicationSewingStudio.ViewModels;
 using WebApplicationSewingStudio.ViewModels.EmployeesViewModels;
+using WebApplicationSewingStudio.ViewModels.OrdersViewModels;
 
 namespace WebApplicationSewingStudio.Controllers
 {
@@ -93,7 +94,8 @@ namespace WebApplicationSewingStudio.Controllers
                 EmployeeViewModel = employeeViewModel,
                 SortViewModel = new EmployeeSortViewModel(sortOrder),
                 PageViewModel = pageViewModel,
-                FilterViewModel = new FilterViewModel(name, surname, patronymic)
+                
+                FilterViewModel = new WebApplicationSewingStudio.ViewModels.EmployeesViewModels.FilterViewModel(name, surname, patronymic)
             };
             return View(viewModel);
         }
@@ -102,12 +104,13 @@ namespace WebApplicationSewingStudio.Controllers
         public ActionResult Edit(int? id)
         {
             var items = db.Employees.Include(p => p.Order).Where(p => p.Id == id).ToList();
-            var orderList = new SelectList(db.Orders, "Id", "Id", items.First().OrderId);
+            var orders = new SelectList(db.Orders, "Id", "Id");
+
             EmployeesViewModel viewModel = new EmployeesViewModel
             {
                 Employees = items,
                 EmployeeViewModel = employeeViewModel,
-                OrdersList = orderList
+                OrdersList = orders
             };
             return View(viewModel); 
         }
@@ -124,7 +127,6 @@ namespace WebApplicationSewingStudio.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            
             var orders = new SelectList(db.Orders, "Id", "Id");
             ViewBag.OrderId = orders;
             return View();
@@ -147,13 +149,28 @@ namespace WebApplicationSewingStudio.Controllers
         [ActionName("Delete")]
         public ActionResult ConfirmDelete(int id)
         {
-
-            var employee = db.Employees.Find(id);
+            var employee = db.Employees.Include(p => p.Order).Where(p => p.Id == id).First();
+            var order = db.Orders.Include(p => p.Product).Where(p => p.Id == employee.OrderId).First();
+            EmployeeViewModel employeeView = new EmployeeViewModel
+            {
+                Name = employee.Name,
+                Surname = employee.Surname,
+                Patronymic = employee.Patronymic,
+                OrderId = employee.OrderId,
+                Date_of_delivery = employee.Date_of_delivery,
+                Execution_start_date = employee.Execution_start_date,
+                Order = order
+                
+            };
+            EmployeesViewModel viewModel = new EmployeesViewModel
+            {
+                EmployeeViewModel = employeeView
+            };
 
             if (employee == null)
                 return View("NotFound");
             else
-                return View(employee);
+                return View(viewModel);
         }
 
         [HttpPost]
@@ -170,8 +187,21 @@ namespace WebApplicationSewingStudio.Controllers
 
         public ViewResult DetailsOrder(int id)
         {
-            Order order = db.Orders.Find(id);
-            return View(order);
+            Order order = db.Orders.Include(p => p.Product).Where(p => p.Id == id).First();
+            OrderViewModel orderView = new OrderViewModel
+            {
+                Id= order.Id,
+                NameProduct = order.Product.Name,
+                Date_of_order = order.Date_of_order,
+                Date_of_sale = order.Date_of_sale,
+                Price = order.Price,
+                Quantity = order.Quantity
+            };
+            OrdersViewModel viewModel = new OrdersViewModel
+            {
+                OrderViewModel = orderView
+            };
+            return View(viewModel);
         }
 
     }

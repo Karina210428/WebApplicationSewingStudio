@@ -13,6 +13,7 @@ using WebApplicationSewingStudio.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using WebApplicationSewingStudio.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace WebApplicationSewingStudio
 {
@@ -30,11 +31,13 @@ namespace WebApplicationSewingStudio
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<SewingStudioContext>(options => options.UseSqlServer(connectionString));
-            string connectionStringIdentity = Configuration.GetConnectionString("DefaultConnectionIdentity");
-            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionStringIdentity));
-            
-            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationContext>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+              .AddCookie(options =>
+              {
+                  options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                  options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+              });
             services.AddMvc();
         }
 
@@ -54,12 +57,12 @@ namespace WebApplicationSewingStudio
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Account}/{action=Login}/{id?}");
+                    template: "{controller=Employee}/{action=Index}/{id?}");
             });
         }
     }
