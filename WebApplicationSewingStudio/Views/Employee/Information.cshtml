@@ -2,17 +2,11 @@
 @using  WebApplicationSewingStudio.ViewModels.EmployeesViewModels
 @addTagHelper "*,WebApplicationSewingStudio "
 @{
-    ViewData["Title"] = "Выполнение заказов";
+    ViewData["Title"] = "Дополнительная информация";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Данные о выполнении заказов</h2>
-<p>
-    <a asp-action="Create">Добавить заказ</a>
-</p>
-<p>
-    <a asp-action="Information">Список содрудников, просрочивших сдачу заказа</a>
-</p>
+<h2>Список сотрудников, не сдавшие во время заказ</h2>
 <form method="get">
     <div class="form-inline">
         <label class="control-label">Имя: </label>
@@ -26,45 +20,41 @@
         <input type="submit" value="Фильтр" class="btn btn-default" />
     </div>
 </form>
-
 <table class="table">
     <thead>
         <tr>
-            @*<th>
-                    <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.EmployeeIdSort)">@Html.DisplayNameFor(model => model.EmployeeViewModel.Id)</a>
-                </th>*@
             <th class="col-md-2">
-                <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.EmployeeNameSort)"
+                <a asp-action="Information" asp-route-sortOrder="@(Model.SortViewModel.EmployeeNameSort)"
                    asp-route-name="@(Model.FilterViewModel.SelectedName)"
                    asp-route-surname="@(Model.FilterViewModel.SelectedSurname)"
-                   asp-route-patronymic="@(Model.FilterViewModel.SelectedPatronymic)" >@Html.DisplayNameFor(model => model.EmployeeViewModel.Name)</a>
+                   asp-route-patronymic="@(Model.FilterViewModel.SelectedPatronymic)">@Html.DisplayNameFor(model => model.EmployeeViewModel.Name)</a>
             </th>
             <th class="col-md-2">
-                <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.EmployeeSurnameSort)" 
-                asp-route-id="@(Model.FilterViewModel.SelectedName)"
-               asp-route-surname="@(Model.FilterViewModel.SelectedSurname)"
-               asp-route-patronymic="@(Model.FilterViewModel.SelectedPatronymic)">@Html.DisplayNameFor(model => model.EmployeeViewModel.Surname)</a>
+                <a asp-action="Information" asp-route-sortOrder="@(Model.SortViewModel.EmployeeSurnameSort)"
+                   asp-route-id="@(Model.FilterViewModel.SelectedName)"
+                   asp-route-surname="@(Model.FilterViewModel.SelectedSurname)"
+                   asp-route-patronymic="@(Model.FilterViewModel.SelectedPatronymic)">@Html.DisplayNameFor(model => model.EmployeeViewModel.Surname)</a>
             </th>
             <th class="col-md-2">
-                <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.EmployeePatronymicSort)"
-                 asp-route-id="@(Model.FilterViewModel.SelectedName)"
-               asp-route-surname="@(Model.FilterViewModel.SelectedSurname)"
-               asp-route-patronymic="@(Model.FilterViewModel.SelectedPatronymic)">@Html.DisplayNameFor(model => model.EmployeeViewModel.Patronymic)</a>
+                <a asp-action="Information" asp-route-sortOrder="@(Model.SortViewModel.EmployeePatronymicSort)"
+                   asp-route-id="@(Model.FilterViewModel.SelectedName)"
+                   asp-route-surname="@(Model.FilterViewModel.SelectedSurname)"
+                   asp-route-patronymic="@(Model.FilterViewModel.SelectedPatronymic)">@Html.DisplayNameFor(model => model.EmployeeViewModel.Patronymic)</a>
             </th>
             <th>
                 <a>@Html.DisplayNameFor(model => model.EmployeeViewModel.OrderId)</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.EmployeeExecutionStartDateSort)"
-                asp-route-id="@(Model.FilterViewModel.SelectedName)"
-               asp-route-surname="@(Model.FilterViewModel.SelectedSurname)"
-               asp-route-patronymic="@(Model.FilterViewModel.SelectedPatronymic)">@Html.DisplayNameFor(model => model.EmployeeViewModel.Execution_start_date)</a>
+                <a asp-action="Information" asp-route-sortOrder="@(Model.SortViewModel.EmployeeExecutionStartDateSort)"
+                   asp-route-id="@(Model.FilterViewModel.SelectedName)"
+                   asp-route-surname="@(Model.FilterViewModel.SelectedSurname)"
+                   asp-route-patronymic="@(Model.FilterViewModel.SelectedPatronymic)">@Html.DisplayNameFor(model => model.EmployeeViewModel.Execution_start_date)</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.EmployeeDateOfDeliverySort)"
-                asp-route-id="@(Model.FilterViewModel.SelectedName)"
-               asp-route-surname="@(Model.FilterViewModel.SelectedSurname)"
-               asp-route-patronymic="@(Model.FilterViewModel.SelectedPatronymic)">
+                <a asp-action="Information" asp-route-sortOrder="@(Model.SortViewModel.EmployeeDateOfDeliverySort)"
+                   asp-route-id="@(Model.FilterViewModel.SelectedName)"
+                   asp-route-surname="@(Model.FilterViewModel.SelectedSurname)"
+                   asp-route-patronymic="@(Model.FilterViewModel.SelectedPatronymic)">
                     @Html.DisplayNameFor(model => model.EmployeeViewModel.Date_of_delivery)
                 </a>
             </th>
@@ -74,9 +64,6 @@
         @foreach (var item in Model.Employees)
         {
             <tr>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
@@ -102,8 +89,9 @@
         }
     </tbody>
 </table>
-<page-link page-model="Model.PageViewModel" page-action="Index"
+<page-link page-model="Model.PageViewModel" page-action="Information"
            page-url-name="@(Model.FilterViewModel.SelectedName)"
            page-url-surname="@(Model.FilterViewModel.SelectedSurname)"
-           page-url-patronymic="@(Model.FilterViewModel.SelectedPatronymic)" 
+           page-url-patronymic="@(Model.FilterViewModel.SelectedPatronymic)"
            page-url-sortorder="@(Model.SortViewModel.Current)"></page-link>
+

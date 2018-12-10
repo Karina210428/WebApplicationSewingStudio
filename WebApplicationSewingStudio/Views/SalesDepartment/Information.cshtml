@@ -1,0 +1,24 @@
+﻿@addTagHelper "*,WebApplicationSewingStudio "
+@using static WebApplicationSewingStudio.Controllers.SalesDepartmentController
+@{
+    ViewData["Title"] = "Дополнительные сведения";
+}
+
+<h2>Дополнительные сведения</h2>
+<p>Введите год за который хотите узнать информацию:</p>
+@using (Html.BeginForm())
+{
+    @Html.TextBox("year")
+    <input type="submit" value="OK"/>
+}
+
+<form method="post" action="/SalesDepartmentController/Information">
+    <div class="form-inline">
+        <p>
+            Вывод суммарной выручки за @ViewData["year"] год: @ViewData["sum"].ToString() р.
+        </p>
+        <p>
+            Вывод суммы, потраченной на материалы за @ViewData["year"] год: @ViewData["sum1"] р.
+        </p>
+    </div>
+</form>

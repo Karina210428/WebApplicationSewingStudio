@@ -20,6 +20,22 @@ namespace WebApplicationSewingStudio.Models
         public ICollection<Order> Orders { get; set; }
         public ICollection<ProductComposition> ProductCompositions { get; set; }
 
+        public ProductComposition ProductComposition
+        {
+            get => default(ProductComposition);
+            set
+            {
+            }
+        }
+
+        public Order Order
+        {
+            get => default(Order);
+            set
+            {
+            }
+        }
+
         public Product()
         {
             Orders = new List<Order>();

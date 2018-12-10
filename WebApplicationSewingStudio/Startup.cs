@@ -62,7 +62,7 @@ namespace WebApplicationSewingStudio
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Employee}/{action=Index}/{id?}");
+                    template: "{controller=Account}/{action=Login}/{id?}");
             });
         }
     }

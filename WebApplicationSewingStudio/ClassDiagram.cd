@@ -10,26 +10,37 @@
   <Class Name="WebApplicationSewingStudio.Models.Material">
     <Position X="2.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AEACAAAQAAAAAAAAAAAAAAQAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <HashCode>AEACAAAQAAgAAAAAAAAAAAQAAAAAAAAAAQAAAAAABAA=</HashCode>
       <FileName>Models\Material.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Supply" />
+      <Property Name="ProductComposition" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="WebApplicationSewingStudio.Models.Order">
     <Position X="3.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAGAAAAAQAAAAAAAAAAQAAIAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <HashCode>EAAGAAAAAQAAAAAAAAAAQAAICAAAAAAAAAAAgAAAAAA=</HashCode>
       <FileName>Models\Order.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Employee" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="WebApplicationSewingStudio.Models.Product">
-    <Position X="5.75" Y="2.75" Width="1.5" />
+    <Position X="6.25" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAECAAAQAQAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAECAAAQAQgAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Product.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ProductComposition" />
+      <Property Name="Order" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="WebApplicationSewingStudio.Models.ProductComposition">
-    <Position X="4.5" Y="0.5" Width="1.5" />
+    <Position X="5.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EEACAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
       <FileName>Models\ProductComposition.cs</FileName>
@@ -38,7 +49,7 @@
   <Class Name="WebApplicationSewingStudio.Models.SewingStudioContext">
     <Position X="10.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AEEAAAAQAAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <HashCode>AEEAACAQAAAAAAAAAAAAAAAAGgAAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>Models\SewingStudioContext.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -50,28 +61,25 @@
     </TypeIdentifier>
   </Class>
   <Class Name="WebApplicationSewingStudio.Models.User" Collapsed="true">
-    <Position X="0.5" Y="6.25" Width="1.5" />
+    <Position X="1" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAACAAAAAAAAAAAAAAAAQABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAIAACAAAAAAEAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
       <FileName>Models\User.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WebApplicationSewingStudio.Controllers.AccountController" Collapsed="true">
     <Position X="15.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAABAAAAAAAAAAAAABAAAIAAAABAAAAAAAQAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAIAAAABAAAAAAAQAAAAAAA=</HashCode>
       <FileName>Controllers\AccountController.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WebApplicationSewingStudio.Controllers.EmployeeController">
     <Position X="12.25" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAQAAABAAAAAAAAAAEAAEACAAEAAEBAAAA=</HashCode>
+      <HashCode>AAAAEAAAAAAQAAAAAAAAAAAAAAEAAEACAAEAAEBAAAA=</HashCode>
       <FileName>Controllers\EmployeeController.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="SewingStudioContext" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="WebApplicationSewingStudio.Controllers.MaterialController">
     <Position X="12.25" Y="0.5" Width="1.5" />
@@ -96,12 +104,9 @@
   <Class Name="WebApplicationSewingStudio.Controllers.ProductCompositionController">
     <Position X="8.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAQAAABAAAAAAAAAAEAAEACAAEACABAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAAAEAAEACAAEACABAAAA=</HashCode>
       <FileName>Controllers\ProductCompositionController.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="SewingStudioContext" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="WebApplicationSewingStudio.Controllers.ProductController">
     <Position X="10" Y="5.25" Width="1.5" />
@@ -123,7 +128,7 @@
   <Class Name="WebApplicationSewingStudio.Controllers.SupplyController">
     <Position X="14" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAQAAABAAAAAAAAAAEAAEACABEAAABAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAQAAABAAAAAAAAAAEAAECCABEAAABAAAA=</HashCode>
       <FileName>Controllers\SupplyController.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>

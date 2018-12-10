@@ -22,6 +22,22 @@ namespace WebApplicationSewingStudio.Models
         public virtual ICollection<ProductComposition> ProductCompositions { get; set; }
         public virtual ICollection<Supply> Supplies { get; set; }
 
+        public Supply Supply
+        {
+            get => default(Supply);
+            set
+            {
+            }
+        }
+
+        public ProductComposition ProductComposition
+        {
+            get => default(ProductComposition);
+            set
+            {
+            }
+        }
+
         public Material()
         {
             ProductCompositions = new List<ProductComposition>();

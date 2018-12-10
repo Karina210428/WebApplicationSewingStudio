@@ -115,7 +115,15 @@ namespace WebApplicationSewingStudio.Controllers
             // сохраняем в бд все изменения
             db.SaveChanges();
             return RedirectToAction("Index");
+            
         }
+
+        //[HttpGet]
+        //public IActionResult Inform()
+        //{
+        //    var sum = db.Orders.Where(s=>s.Date_of_sale.Year == 2014).Sum(s => s.Price * s.Quantity)
+        //    return View();
+        //}
 
 
         [HttpGet]

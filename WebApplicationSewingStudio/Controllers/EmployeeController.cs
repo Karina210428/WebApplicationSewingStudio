@@ -25,13 +25,85 @@ namespace WebApplicationSewingStudio.Controllers
         {
             this.db = db;
         }
+        public IActionResult Information(string name, string surname, string patronymic, int page = 1, SortState sortOrder = SortState.EmployeeIdAsc)
+        {
+            int pageSize = 15;
+            IQueryable<Employee> source = db.Employees.Include(p => p.Order).Where((s => s.Order.Date_of_sale < s.Date_of_delivery));
+            if (!String.IsNullOrEmpty(name))
+            {
+                source = source.Where(p => p.Name.Contains(name));
+            }
+            if (!String.IsNullOrEmpty(surname))
+            {
+                source = source.Where(p => p.Surname.Contains(surname));
+            }
+            if (!String.IsNullOrEmpty(patronymic))
+            {
+                source = source.Where(p => p.Patronymic.Contains(patronymic));
+            }
+
+            switch (sortOrder)
+            {
+                case SortState.EmployeeIdDec:
+                    source = source.OrderByDescending(s => s.Id);
+                    break;
+                case SortState.EmployeeNameDec:
+                    source = source.OrderByDescending(s => s.Name);
+                    break;
+                case SortState.EmployeeSurnameDec:
+                    source = source.OrderByDescending(s => s.Surname);
+                    break;
+                case SortState.EmployeePatronymicDec:
+                    source = source.OrderByDescending(s => s.Patronymic);
+                    break;
+                case SortState.EmployeeExecutionStartDateDec:
+                    source = source.OrderByDescending(s => s.Execution_start_date);
+                    break;
+                case SortState.EmployeeDateOfDeliveryDec:
+                    source = source.OrderByDescending(s => s.Date_of_delivery);
+                    break;
+                case SortState.EmployeeNameAsc:
+                    source = source.OrderBy(s => s.Name);
+                    break;
+                case SortState.EmployeeSurnameAsc:
+                    source = source.OrderBy(s => s.Surname);
+                    break;
+                case SortState.EmployeePatronymicAsc:
+                    source = source.OrderBy(s => s.Patronymic);
+                    break;
+                case SortState.EmployeeExecutionStartDateAsc:
+                    source = source.OrderBy(s => s.Execution_start_date);
+                    break;
+                case SortState.EmployeeDateOfDeliveryAsc:
+                    source = source.OrderBy(s => s.Date_of_delivery);
+                    break;
+                default:
+                    source = source.OrderBy(s => s.Id);
+                    break;
+            }
+            var count = source.Count();
+            var items = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+            EmployeesViewModel viewModel = new EmployeesViewModel
+            {
+                Employees = items,
+                EmployeeViewModel = employeeViewModel,
+                SortViewModel = new EmployeeSortViewModel(sortOrder),
+                PageViewModel = pageViewModel,
+
+                FilterViewModel = new WebApplicationSewingStudio.ViewModels.EmployeesViewModels.FilterViewModel(name, surname, patronymic)
+            };
+            return View(viewModel);
+        }
+
 
         public IActionResult Index(string name, string surname, string patronymic, int page = 1, SortState sortOrder = SortState.EmployeeIdAsc )
         {
             int pageSize = 15;
             var employees = db.Employees.Include(p => p.Order);
             IQueryable<Employee> source = db.Employees.Include(p => p.Order);
-
+            
             if (!String.IsNullOrEmpty(name))
             {
                 source = source.Where(p => p.Name.Contains(name));

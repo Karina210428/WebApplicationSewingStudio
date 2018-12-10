@@ -29,5 +29,13 @@ namespace WebApplicationSewingStudio.Models
         public DateTime Date_of_sale { get; set; }
         public Product Product { get; set; }
         public ICollection<Employee> Employers { get; set; }
+
+        public Employee Employee
+        {
+            get => default(Employee);
+            set
+            {
+            }
+        }
     }
 }
