@@ -26,12 +26,14 @@ namespace WebApplicationSewingStudio.Controllers
             this.db = db;
         }
 
-
-        public IActionResult Index(int page = 1, SortState sortOrder = SortState.ProductCompositionIdAsc)
+        public IActionResult Index(string name, int page = 1, SortState sortOrder = SortState.ProductCompositionIdAsc)
         {
-            int pageSize = 15;
+            int pageSize = 10;
             IQueryable<ProductComposition> source = db.ProductCompositions.Include(p => p.Material).Include(p => p.Product);
-
+             if (!String.IsNullOrEmpty(name))
+            {
+                source = source.Where(p => p.Product.Name.Equals(name));
+            }
             switch (sortOrder)
             {
                 case SortState.ProductCompositionIdDec:
@@ -68,7 +70,8 @@ namespace WebApplicationSewingStudio.Controllers
                 PageViewModel = pageViewModel,
                 ProductCompositions = items,
                 ProductCompositionViewModel = productCompositionViewModel,
-                SortViewModel = new ProductComposotionSortViewModel(sortOrder)
+                SortViewModel = new ProductComposotionSortViewModel(sortOrder),
+                FilterViewModel = new WebApplicationSewingStudio.ViewModels.ProductCompositionsViewModels.FilterViewModel(name)
             };
             return View(viewModel);
         }
@@ -124,13 +127,24 @@ namespace WebApplicationSewingStudio.Controllers
         [ActionName("Delete")]
         public ActionResult ConfirmDelete(int id)
         {
-
+            
             ProductComposition productComposition = db.ProductCompositions.Find(id);
-
+            var products = db.Products.Where(p => p.Id == productComposition.ProductId).First();
+            var materials = db.Materials.Where(p => p.Id == productComposition.MaterialId).First();
+            ProductCompositionViewModel viewModel = new ProductCompositionViewModel
+            {
+                ProductName = productComposition.Product.Name,
+                MaterialName = productComposition.Material.Name,
+                Quantity = productComposition.Quantity,
+            };
+            ProductCompositionsViewModel productCompositionsViewModel = new ProductCompositionsViewModel
+            {
+                ProductCompositionViewModel = viewModel
+            };
             if (productComposition == null)
                 return View("NotFound");
             else
-                return View(productComposition);
+                return View(productCompositionsViewModel);
         }
 
         [HttpPost]

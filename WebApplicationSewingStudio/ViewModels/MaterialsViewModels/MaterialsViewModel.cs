@@ -12,5 +12,6 @@ namespace WebApplicationSewingStudio.ViewModels.MaterialsViewModels
         public PageViewModel PageViewModel { get; set; }
         public MaterialSortViewModel SortViewModel { get; set; }
         public IEnumerable<Material> Materials { get; set; } 
+        public FilterViewModel FilterViewModel { get; set; }
     }
 }

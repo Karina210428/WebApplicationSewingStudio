@@ -9,6 +9,14 @@
     <p>
         <a asp-action="Create">Добавить новый состав для изделия</a>
     </p>
+    <form method="get">
+        <div class="form-inline">
+            <label class="control-label">Изделие: </label>
+            @Html.TextBox("name", Model.FilterViewModel.SelectedName, htmlAttributes: new { @class = "form-control" })
+
+            <input type="submit" value="Фильтр" class="btn btn-default" />
+        </div>
+    </form>
     <table class="table">
         <thead>
             <tr>
@@ -16,13 +24,13 @@
                         <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.ProductCompositionId)"> @Html.DisplayNameFor(model => model.ProductCompositionViewModel.Id)</a>
                     </th>*@
                 <th>
-                    <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.ProductCompositionProductName)">@Html.DisplayNameFor(model => model.ProductCompositionViewModel.ProductName)</a>
+                    <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.ProductCompositionProductName)" asp-route-name="@(Model.FilterViewModel.SelectedName)">@Html.DisplayNameFor(model => model.ProductCompositionViewModel.ProductName)</a>
                 </th>
                 <th>
-                    <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.ProductCompositionMaterialName)"> @Html.DisplayNameFor(model => model.ProductCompositionViewModel.MaterialName)</a>
+                    <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.ProductCompositionMaterialName)" asp-route-name="@(Model.FilterViewModel.SelectedName)"> @Html.DisplayNameFor(model => model.ProductCompositionViewModel.MaterialName)</a>
                 </th>
                 <th>
-                    <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.ProductCompositionQuantity)">@Html.DisplayNameFor(model => model.ProductCompositionViewModel.Quantity)</a>
+                    <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.ProductCompositionQuantity)" asp-route-name="@(Model.FilterViewModel.SelectedName)">@Html.DisplayNameFor(model => model.ProductCompositionViewModel.Quantity)</a>
                 </th>
 
             </tr>
@@ -53,7 +61,5 @@
         </tbody>
     </table>
     <page-link page-model="Model.PageViewModel" page-action="Index"
-               @*page-url-name="@(Model.FilterViewModel.SelectedName)"
-               page-url-surname="@(Model.FilterViewModel.SelectedSurname)"
-               page-url-patronymic="@(Model.FilterViewModel.SelectedPatronymic)" *@
+               page-url-name="@(Model.FilterViewModel.SelectedName)"
                page-url-sortorder="@(Model.SortViewModel.Current)"></page-link>

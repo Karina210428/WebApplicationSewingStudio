@@ -26,53 +26,14 @@ namespace WebApplicationSewingStudio.Controllers
             NameMaterial = ""
         };
 
-        public async Task<IActionResult> ProceedsForYearAsync(string d = "01.01.2030", int page = 1)
-        {
-            int pageSize = 10;  // количество элементов на странице
-            List<object[]> source = new List<object[]>();
-            using (var command = db.Database.GetDbConnection().CreateCommand())
-            {
-                DbParameter parameter = command.CreateParameter();
-                parameter.DbType = System.Data.DbType.String;
-                parameter.ParameterName = "@d";
-                parameter.Value = d;
-                command.Parameters.Add(parameter);
-                command.CommandText = "my_proc2";
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Connection.Open();
-                DbDataReader reader = await command.ExecuteReaderAsync();
-                if (reader.HasRows)
-                {
-                    while (await reader.ReadAsync())
-                    {
-                        object[] item = new object[reader.FieldCount];
-                        reader.GetValues(item);
-                        source.Add(item);
-                    }
-                }
-                command.Connection.Close();
-            }
-
-            var count = source.Count;
-            var items = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();
-
-            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
-
-            SuppliesVeiwModel viewModel = new SuppliesVeiwModel
-            {
-                PageViewModel = pageViewModel,
-               // Supplies = source
-            };
-
-            return View(viewModel);
-        }
-
-
-        public IActionResult Index(int page = 1, SortState sortOrder = SortState.OrderIdAsc)
+        public IActionResult Index(string name, int page = 1, SortState sortOrder = SortState.OrderIdAsc)
         {
             int pageSize = 10;
             IQueryable<Supply> source = db.Supplies.Include(p => p.Materials);
-
+            if (!String.IsNullOrEmpty(name))
+            {
+                source = source.Where(p => p.Supplier.Contains(name));
+            }
             switch (sortOrder)
             {
                 case SortState.SupplyIdDec:
@@ -118,7 +79,8 @@ namespace WebApplicationSewingStudio.Controllers
                 Supplies = items,
                 PageViewModel = pageViewModel,
                 SortViewModel = new SupplySortViewModel(sortOrder),
-                SupplyViewModel = supplyViewModel
+                SupplyViewModel = supplyViewModel,
+                FilterViewModel = new WebApplicationSewingStudio.ViewModels.SuppliesViewModels.FilterViewModel(name)
             };
             return View(viewModel);
         }
@@ -171,11 +133,23 @@ namespace WebApplicationSewingStudio.Controllers
         {
 
             Supply supply = db.Supplies.Find(id);
-
+            var material = db.Materials.Where(p => p.Id == supply.MaterialId).First();
+            SupplyViewModel supplyView = new SupplyViewModel
+            {
+                Supplier = supply.Supplier,
+                NameMaterial = material.Name,
+                QuantityMaterials = supply.Quantity,
+                Price = supply.Price,
+                Delivery_date = supply.Delivery_date
+            };
+            SuppliesVeiwModel veiwModel = new SuppliesVeiwModel
+            {
+                SupplyViewModel = supplyView
+            };
             if (supply == null)
                 return View("NotFound");
             else
-                return View(supply);
+                return View(veiwModel);
         }
 
         [HttpPost]
@@ -188,14 +162,6 @@ namespace WebApplicationSewingStudio.Controllers
                 db.SaveChanges();
             }
             return RedirectToAction("index");
-        }
-
-        public SewingStudioContext SewingStudioContext
-        {
-            get => default(SewingStudioContext);
-            set
-            {
-            }
         }
     }
 }

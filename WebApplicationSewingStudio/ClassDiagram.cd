@@ -1,46 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="WebApplicationSewingStudio.Models.Employee">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Position X="0.5" Y="0.5" Width="1.25" />
     <TypeIdentifier>
       <HashCode>EAECACAAAAAAAIAAAAAAAAQABAAEAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Employee.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WebApplicationSewingStudio.Models.Material">
-    <Position X="2.5" Y="0.5" Width="1.5" />
+    <Position X="2.25" Y="0.5" Width="1.25" />
     <TypeIdentifier>
-      <HashCode>AEACAAAQAAgAAAAAAAAAAAQAAAAAAAAAAQAAAAAABAA=</HashCode>
+      <HashCode>AEACAAAQAAAAAAAAAAAAAAQAAAAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>Models\Material.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Supply" />
-      <Property Name="ProductComposition" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="WebApplicationSewingStudio.Models.Order">
-    <Position X="3.75" Y="3.5" Width="1.5" />
+    <Position X="2.5" Y="3.25" Width="1.25" />
     <TypeIdentifier>
-      <HashCode>EAAGAAAAAQAAAAAAAAAAQAAICAAAAAAAAAAAgAAAAAA=</HashCode>
+      <HashCode>EAAGAAAAAQAAAAAAAAAAQAAIAAAAAAAAAAAAgAAAAAA=</HashCode>
       <FileName>Models\Order.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Employee" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="WebApplicationSewingStudio.Models.Product">
-    <Position X="6.25" Y="4" Width="1.5" />
+    <Position X="4.5" Y="3" Width="1.25" />
     <TypeIdentifier>
-      <HashCode>AAECAAAQAQgAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAECAAAQAQAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Product.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="ProductComposition" />
-      <Property Name="Order" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="WebApplicationSewingStudio.Models.ProductComposition">
-    <Position X="5.25" Y="0.5" Width="1.5" />
+    <Position X="4" Y="0.5" Width="1.25" />
     <TypeIdentifier>
       <HashCode>EEACAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
       <FileName>Models\ProductComposition.cs</FileName>
@@ -54,92 +43,101 @@
     </TypeIdentifier>
   </Class>
   <Class Name="WebApplicationSewingStudio.Models.Supply">
-    <Position X="1.25" Y="3.5" Width="1.5" />
+    <Position X="0.5" Y="3.75" Width="1.25" />
     <TypeIdentifier>
       <HashCode>AEACAAAAAQAAAIAAAAQAAAAAAAACAAAAAAAAgAAAAAA=</HashCode>
       <FileName>Models\Supply.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="WebApplicationSewingStudio.Models.User" Collapsed="true">
-    <Position X="1" Y="6.25" Width="1.5" />
+  <Class Name="WebApplicationSewingStudio.Models.User">
+    <Position X="1.5" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAIAACAAAAAAEAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
       <FileName>Models\User.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="WebApplicationSewingStudio.Controllers.AccountController" Collapsed="true">
-    <Position X="15.75" Y="0.5" Width="1.5" />
+  <Class Name="WebApplicationSewingStudio.Controllers.AccountController">
+    <Position X="13.25" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAABAAAAAAAAAIAAAABAAAAAAAQAAAAAAA=</HashCode>
       <FileName>Controllers\AccountController.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_context" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="WebApplicationSewingStudio.Controllers.EmployeeController">
-    <Position X="12.25" Y="4" Width="1.5" />
+    <Position X="9" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAEAAAAAAQAAAAAAAAAAAAAAEAAEACAAEAAEBAAAA=</HashCode>
       <FileName>Controllers\EmployeeController.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="db" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="WebApplicationSewingStudio.Controllers.MaterialController">
-    <Position X="12.25" Y="0.5" Width="1.5" />
+    <Position X="13" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAQAAABAAAAAAAAAAEAAEACAAEAAABAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAAAEAAEACAAEAAABAAAA=</HashCode>
       <FileName>Controllers\MaterialController.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="SewingStudioContext" />
+      <Field Name="db" />
     </ShowAsAssociation>
   </Class>
   <Class Name="WebApplicationSewingStudio.Controllers.OrderController">
     <Position X="8.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAACAQAAABAAAAAAAAAAEAAEACAAEAAABAAAA=</HashCode>
+      <HashCode>AAAAAAAAACAQAAAAAAAAAAAAAAEAAEACAAEAAABAAAA=</HashCode>
       <FileName>Controllers\OrderController.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="SewingStudioContext" />
+      <Field Name="db" />
     </ShowAsAssociation>
   </Class>
   <Class Name="WebApplicationSewingStudio.Controllers.ProductCompositionController">
-    <Position X="8.25" Y="3.75" Width="1.5" />
+    <Position X="6.25" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAAAEAAEACAAEACABAAAA=</HashCode>
       <FileName>Controllers\ProductCompositionController.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="db" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="WebApplicationSewingStudio.Controllers.ProductController">
-    <Position X="10" Y="5.25" Width="1.5" />
+    <Position X="6.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAQAAABAAAAAAAAAAEAAEACAAEAAABAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAAAEAAEACAAEAAABAAAA=</HashCode>
       <FileName>Controllers\ProductController.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="SewingStudioContext" />
+      <Field Name="db" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="WebApplicationSewingStudio.Controllers.RolesController" Collapsed="true">
-    <Position X="15.75" Y="1.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AACABAAAAAAAAAAAAAAAAAAgAAEAAEACAAEAAAAAAAA=</HashCode>
-      <FileName>Controllers\RolesController.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="WebApplicationSewingStudio.Controllers.SupplyController">
-    <Position X="14" Y="2.75" Width="1.5" />
+    <Position X="11.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAQAAABAAAAAAAAAAEAAECCABEAAABAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAAAEAAECCABEAAABAAAA=</HashCode>
       <FileName>Controllers\SupplyController.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="SewingStudioContext" />
+      <Field Name="db" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="WebApplicationSewingStudio.Controllers.UsersController" Collapsed="true">
-    <Position X="15.75" Y="2.5" Width="1.5" />
+  <Class Name="WebApplicationSewingStudio.Startup">
+    <Position X="3.75" Y="6" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAEAAEACAAEAAAAAAAA=</HashCode>
-      <FileName>Controllers\UsersController.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAgAAACAAAAAA=</HashCode>
+      <FileName>Startup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApplicationSewingStudio.Program">
+    <Position X="5.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

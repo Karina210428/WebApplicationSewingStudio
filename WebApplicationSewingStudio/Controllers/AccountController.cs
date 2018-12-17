@@ -20,6 +20,7 @@ namespace WebApplicationSewingStudio.Controllers
         {
             _context = context;
         }
+
         [HttpGet]
         public IActionResult Register()
         {

@@ -9,20 +9,30 @@
 <p>
     <a asp-action="Create">Добавить материал</a>
 </p>
+<form method="get">
+    <div class="form-inline">
+        <label class="control-label">Материал: </label>
+        @Html.TextBox("name", Model.FilterViewModel.SelectedName, htmlAttributes: new { @class = "form-control" })
+
+        <input type="submit" value="Фильтр" class="btn btn-default" />
+    </div>
+</form>
 <div class="cell">
     <table class="table" id="data">
         <thead>
             <tr>
-               <th><a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.MaterialId)">@Html.DisplayNameFor(model => model.Material.Id)</a></th>
-                <th><a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.MaterialName)">@Html.DisplayNameFor(model => model.Material.Name)</a></th>
-                <th><a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.MaterialType)">@Html.DisplayNameFor(model => model.Material.Type)</a></th>
+               @*<th><a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.MaterialId)">@Html.DisplayNameFor(model => model.Material.Id)</a></th>*@
+                <th><a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.MaterialName)"
+                    asp-route-name="@(Model.FilterViewModel.SelectedName)">@Html.DisplayNameFor(model => model.Material.Name)</a></th>
+                <th><a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.MaterialType)"
+                    asp-route-name="@(Model.FilterViewModel.SelectedName)">@Html.DisplayNameFor(model => model.Material.Type)</a></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var material in Model.Materials)
             {
             <tr>
-                <td>@Html.DisplayFor(modelItem => material.Id)</td>
+                @*<td>@Html.DisplayFor(modelItem => material.Id)</td>*@
                 <td>@Html.DisplayFor(modelItem => material.Name)</td>
                 <td>@Html.DisplayFor(modelItem => material.Type)</td>
                 <td>
@@ -35,9 +45,7 @@
         </tbody>
     </table>
     <page-link page-model="Model.PageViewModel" page-action="Index"
-               @*page-url-name="@(Model.FilterViewModel.SelectedName)"
-               page-url-surname="@(Model.FilterViewModel.SelectedSurname)"
-               page-url-patronymic="@(Model.FilterViewModel.SelectedPatronymic)" *@
+                 page-url-name="@(Model.FilterViewModel.SelectedName)"
                page-url-sortorder="@(Model.SortViewModel.Current)"></page-link>
 </div>
 

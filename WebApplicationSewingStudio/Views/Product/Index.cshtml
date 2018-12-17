@@ -10,13 +10,21 @@
 <p>
     <a asp-action="Create">Добавить изделие</a>
 </p>
+<form method="get">
+    <div class="form-inline">
+        <label class="control-label">Изделие: </label>
+        @Html.TextBox("name", Model.FilterViewModel.SelectedName, htmlAttributes: new { @class = "form-control" })
+
+        <input type="submit" value="Фильтр" class="btn btn-default" />
+    </div>
+</form>
 <div class="cell">
     <table class="table" id="data">
         <thead>
             <tr>
                 @*<th><a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.ProductId)">@Html.DisplayNameFor(model => model.Product.Id)</a></th>*@
-                <th><a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.ProductName)">@Html.DisplayNameFor(model => model.Product.Name)</a></th>
-                <th><a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.ProductPrice)">@Html.DisplayNameFor(model => model.Product.Price)</a></th>
+                <th><a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.ProductName)"  asp-route-name="@(Model.FilterViewModel.SelectedName)">@Html.DisplayNameFor(model => model.Product.Name)</a></th>
+                <th><a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.ProductPrice)"  asp-route-name="@(Model.FilterViewModel.SelectedName)"> @Html.DisplayNameFor(model => model.Product.Price)</a></th>
             </tr>
         </thead>
         <tbody>
@@ -36,9 +44,7 @@
         </tbody>
     </table>
     <page-link page-model="Model.PageViewModel" page-action="Index"
-               @*page-url-name="@(Model.FilterViewModel.SelectedName)"
-               page-url-surname="@(Model.FilterViewModel.SelectedSurname)"
-               page-url-patronymic="@(Model.FilterViewModel.SelectedPatronymic)" *@
+               page-url-name="@(Model.FilterViewModel.SelectedName)"
                page-url-sortorder="@(Model.SortViewModel.Current)"></page-link>
 
 </div>

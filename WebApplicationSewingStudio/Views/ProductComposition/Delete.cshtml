@@ -1,4 +1,4 @@
-﻿@model WebApplicationSewingStudio.Models.ProductComposition
+﻿@model WebApplicationSewingStudio.ViewModels.ProductCompositionsViewModels.ProductCompositionsViewModel
 @{
     ViewData["Title"] = "Удаление";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -11,27 +11,26 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Quantity)
+            @Html.DisplayNameFor(model => model.ProductCompositionViewModel.Quantity)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Quantity)
+            @Html.DisplayFor(model => model.ProductCompositionViewModel.Quantity)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Product)
+            @Html.DisplayNameFor(model => model.ProductCompositionViewModel.ProductName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Product.Id)
+            @Html.DisplayFor(model => model.ProductCompositionViewModel.ProductName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Material)
+            @Html.DisplayNameFor(model => model.ProductCompositionViewModel.MaterialName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Material.Name)
+            @Html.DisplayFor(model => model.ProductCompositionViewModel.MaterialName)
         </dd>
     </dl>
 
     <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
         <input type="submit" value="Удалить" class="btn btn-default" /> |
         <a asp-action="Index">Вернуться к списку</a>
     </form>

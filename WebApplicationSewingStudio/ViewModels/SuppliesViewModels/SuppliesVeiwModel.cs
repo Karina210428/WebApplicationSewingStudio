@@ -15,5 +15,6 @@ namespace WebApplicationSewingStudio.ViewModels.SuppliesViewModels
         public PageViewModel PageViewModel { get; set; }
         public SelectList MaterialsList { get; set; }
         public SupplySortViewModel SortViewModel { get; set; }
+        public FilterViewModel FilterViewModel { get; set; }
     }
 }

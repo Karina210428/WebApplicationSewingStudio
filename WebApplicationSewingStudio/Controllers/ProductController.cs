@@ -18,18 +18,14 @@ namespace WebApplicationSewingStudio.Controllers
             this.db = db;
         }
 
-        public SewingStudioContext SewingStudioContext
-        {
-            get => default(SewingStudioContext);
-            set
-            {
-            }
-        }
-
-        public IActionResult Index(int page = 1, SortState sortOrder = SortState.ProductIdAsc)
+        public IActionResult Index(string name,int page = 1, SortState sortOrder = SortState.ProductIdAsc)
         {
             int pageSize = 10;
             IQueryable<Product> source = db.Products;
+            if (!String.IsNullOrEmpty(name))
+            {
+                source = source.Where(p => p.Name.Contains(name));
+            }
             switch (sortOrder)
             {
                 case SortState.ProductNameAsc:
@@ -56,7 +52,8 @@ namespace WebApplicationSewingStudio.Controllers
             {
                 Products = items,
                 PageViewModel = pageViewModel,
-                SortViewModel = new ProductSortViewModel(sortOrder)
+                SortViewModel = new ProductSortViewModel(sortOrder),
+                FilterViewModel = new WebApplicationSewingStudio.ViewModels.ProductsViewModels.FilterViewModel(name)
             };
             return View(viewModel);
         }

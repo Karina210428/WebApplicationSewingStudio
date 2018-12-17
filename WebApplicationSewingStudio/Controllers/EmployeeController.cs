@@ -27,7 +27,7 @@ namespace WebApplicationSewingStudio.Controllers
         }
         public IActionResult Information(string name, string surname, string patronymic, int page = 1, SortState sortOrder = SortState.EmployeeIdAsc)
         {
-            int pageSize = 15;
+            int pageSize = 10;
             IQueryable<Employee> source = db.Employees.Include(p => p.Order).Where((s => s.Order.Date_of_sale < s.Date_of_delivery));
             if (!String.IsNullOrEmpty(name))
             {
@@ -100,7 +100,7 @@ namespace WebApplicationSewingStudio.Controllers
 
         public IActionResult Index(string name, string surname, string patronymic, int page = 1, SortState sortOrder = SortState.EmployeeIdAsc )
         {
-            int pageSize = 15;
+            int pageSize = 10;
             var employees = db.Employees.Include(p => p.Order);
             IQueryable<Employee> source = db.Employees.Include(p => p.Order);
             

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebApplicationSewingStudio.Models
 {
-    public class Material
+    public class Material 
     {
         [Key]
         [Display(Name = "Код материала")]
@@ -21,22 +21,6 @@ namespace WebApplicationSewingStudio.Models
         public String Type { get; set; }
         public virtual ICollection<ProductComposition> ProductCompositions { get; set; }
         public virtual ICollection<Supply> Supplies { get; set; }
-
-        public Supply Supply
-        {
-            get => default(Supply);
-            set
-            {
-            }
-        }
-
-        public ProductComposition ProductComposition
-        {
-            get => default(ProductComposition);
-            set
-            {
-            }
-        }
 
         public Material()
         {

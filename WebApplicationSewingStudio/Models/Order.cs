@@ -30,12 +30,5 @@ namespace WebApplicationSewingStudio.Models
         public Product Product { get; set; }
         public ICollection<Employee> Employers { get; set; }
 
-        public Employee Employee
-        {
-            get => default(Employee);
-            set
-            {
-            }
-        }
     }
 }

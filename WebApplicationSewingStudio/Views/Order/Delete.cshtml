@@ -1,4 +1,4 @@
-﻿@model WebApplicationSewingStudio.Models.Order
+﻿@model WebApplicationSewingStudio.ViewModels.OrdersViewModels.OrdersViewModel
 
 @{
     ViewData["Title"] = "Удаление";
@@ -12,39 +12,44 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.DisplayNameFor(model => model.OrderViewModel.Id)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Price)
+            @Html.DisplayFor(model => model.OrderViewModel.Id)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Quantity)
+            @Html.DisplayNameFor(model => model.OrderViewModel.Price)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Quantity)
+            @Html.DisplayFor(model => model.OrderViewModel.Price)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Date_of_order)
+            @Html.DisplayNameFor(model => model.OrderViewModel.Quantity)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Date_of_order)
+            @Html.DisplayFor(model => model.OrderViewModel.Quantity)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Date_of_sale)
+            @Html.DisplayNameFor(model => model.OrderViewModel.Date_of_order)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Date_of_sale)
+            @Html.DisplayFor(model => model.OrderViewModel.Date_of_order)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Product)
+            @Html.DisplayNameFor(model => model.OrderViewModel.Date_of_sale)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Product.Id)
+            @Html.DisplayFor(model => model.OrderViewModel.Date_of_sale)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderViewModel.NameProduct)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OrderViewModel.NameProduct)
         </dd>
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
         <input type="submit" value="Удалить" class="btn btn-default" /> |
         <a asp-action="Index">Вернуться к списку</a>
     </form>

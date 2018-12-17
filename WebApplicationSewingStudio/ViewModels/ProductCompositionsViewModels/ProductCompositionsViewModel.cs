@@ -15,5 +15,6 @@ namespace WebApplicationSewingStudio.ViewModels.ProductCompositionsViewModels
         public SelectList ProductsList { get; set; }
         public SelectList MaterialsList { get; set; }
         public ProductCompositionViewModel ProductCompositionViewModel { get; set; }
+        public FilterViewModel FilterViewModel { get; set; }
     }
 }

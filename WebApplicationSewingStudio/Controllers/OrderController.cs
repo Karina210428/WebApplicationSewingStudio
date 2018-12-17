@@ -25,14 +25,6 @@ namespace WebApplicationSewingStudio.Controllers
             this.db = db;
         }
 
-        public SewingStudioContext SewingStudioContext
-        {
-            get => default(SewingStudioContext);
-            set
-            {
-            }
-        }
-
         public IActionResult Index(int id, int page = 1, SortState sortOrder = SortState.OrderIdAsc)
         {
             int pageSize = 10;
@@ -118,14 +110,6 @@ namespace WebApplicationSewingStudio.Controllers
             
         }
 
-        //[HttpGet]
-        //public IActionResult Inform()
-        //{
-        //    var sum = db.Orders.Where(s=>s.Date_of_sale.Year == 2014).Sum(s => s.Price * s.Quantity)
-        //    return View();
-        //}
-
-
         [HttpGet]
         public IActionResult Create()
         {
@@ -153,11 +137,24 @@ namespace WebApplicationSewingStudio.Controllers
         {
 
             Order order = db.Orders.Find(id);
-
+            var product = db.Products.Where(p => p.Id == order.ProductId).First();
+            OrderViewModel orderViewModel = new OrderViewModel
+            {
+                NameProduct = product.Name,
+                Date_of_order = order.Date_of_order,
+                Date_of_sale = order.Date_of_sale,
+                Price = order.Price,
+                Id = order.Id,
+                Quantity = order.Quantity
+            };
+            OrdersViewModel viewModel = new OrdersViewModel
+            {
+                OrderViewModel = orderViewModel
+            };
             if (order == null)
                 return View("NotFound");
             else
-                return View(order);
+                return View(viewModel);
         }
 
         [HttpPost]

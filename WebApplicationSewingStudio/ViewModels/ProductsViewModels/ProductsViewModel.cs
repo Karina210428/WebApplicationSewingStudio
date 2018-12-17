@@ -12,5 +12,6 @@ namespace WebApplicationSewingStudio.ViewModels.ProductsViewModels
         public Product Product { get; set; }
         public IEnumerable<Product> Products { get; set; }
         public ProductSortViewModel SortViewModel { get; set; }
+        public FilterViewModel FilterViewModel { get; set; }
     }
 }

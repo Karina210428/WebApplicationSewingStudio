@@ -31,9 +31,9 @@ namespace WebApplicationSewingStudio.Models
                 entity.HasKey(e => e.Id)
                     .HasName("PK__employer__73C69839C65602EF");
 
-                entity.ToTable("employers");
+                entity.ToTable("Employees");
 
-                entity.Property(e => e.Id).HasColumnName("idEmployees");
+                entity.Property(e => e.Id).HasColumnName("Id");
 
                 entity.Property(e => e.Date_of_delivery)
                     .HasColumnName("Date_of_delivery")
@@ -43,7 +43,7 @@ namespace WebApplicationSewingStudio.Models
                     .HasColumnName("Execution_start_date")
                     .HasColumnType("date");
 
-                entity.Property(e => e.OrderId).HasColumnName("idOrder");
+                entity.Property(e => e.OrderId).HasColumnName("OrderId");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -67,7 +67,7 @@ namespace WebApplicationSewingStudio.Models
 
                 entity.ToTable("materials");
 
-                entity.Property(e => e.Id).HasColumnName("idMaterials");
+                entity.Property(e => e.Id).HasColumnName("Id");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -90,7 +90,7 @@ namespace WebApplicationSewingStudio.Models
                 entity.HasIndex(e => e.ProductId)
                     .HasName("idProducts_idx");
 
-                entity.Property(e => e.Id).HasColumnName("idOrders");
+                entity.Property(e => e.Id).HasColumnName("Id");
 
                 entity.Property(e => e.Date_of_order)
                     .HasColumnName("Date_of_order")
@@ -102,7 +102,7 @@ namespace WebApplicationSewingStudio.Models
                     .HasColumnName("Date_of_sale")
                     .HasColumnType("date");
 
-                entity.Property(e => e.ProductId).HasColumnName("idProduct");
+                entity.Property(e => e.ProductId).HasColumnName("ProductId");
             });
 
             modelBuilder.Entity<ProductComposition>(entity =>
@@ -112,11 +112,11 @@ namespace WebApplicationSewingStudio.Models
 
                 entity.ToTable("productcomposition");
 
-                entity.Property(e => e.Id).HasColumnName("idProductComposition");
+                entity.Property(e => e.Id).HasColumnName("Id");
 
-                entity.Property(e => e.MaterialId).HasColumnName("idMaterial");
+                entity.Property(e => e.MaterialId).HasColumnName("MaterialId");
 
-                entity.Property(e => e.ProductId).HasColumnName("idProduct");
+                entity.Property(e => e.ProductId).HasColumnName("ProductId");
 
                 entity.Property(e => e.Quantity).HasDefaultValueSql("('0')");
             });
@@ -133,12 +133,12 @@ namespace WebApplicationSewingStudio.Models
                 entity.HasKey(e => e.Id)
                     .HasName("PK__tmp_ms_x__E94C3637FD8BB1A5");
 
-                entity.ToTable("supply");
+                entity.ToTable("supplies");
 
                 entity.HasIndex(e => e.MaterialId)
                     .HasName("idMaterials_idx");
 
-                entity.Property(e => e.Id).HasColumnName("idSupply");
+                entity.Property(e => e.Id).HasColumnName("Id");
 
                 entity.Property(e => e.Delivery_date)
                     .HasColumnName("Delivery_date")
@@ -148,7 +148,7 @@ namespace WebApplicationSewingStudio.Models
 
                 entity.Property(e=>e.Quantity).HasColumnName("QuantityMaterials").HasColumnType("int").HasDefaultValueSql("('0')");
 
-                entity.Property(e => e.MaterialId).HasColumnName("idMaterials");
+                entity.Property(e => e.MaterialId).HasColumnName("MaterialId");
 
                 entity.Property(e => e.Supplier)
                     .IsRequired()
