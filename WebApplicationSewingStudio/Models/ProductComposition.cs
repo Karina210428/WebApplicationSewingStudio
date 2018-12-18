@@ -19,6 +19,7 @@ namespace WebApplicationSewingStudio.Models
         public int MaterialId { get; set; }
         [Required(ErrorMessage = "Поле должно быть установлено")]
         [Display(Name = "Количество материала")]
+        [Range(0,100000000)]
         public int Quantity { get; set; }
         public virtual Product Product { get; set; }
         public virtual Material Material { get; set; } 

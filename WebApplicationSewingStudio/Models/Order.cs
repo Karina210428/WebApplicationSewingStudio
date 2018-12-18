@@ -15,6 +15,7 @@ namespace WebApplicationSewingStudio.Models
         public int ProductId { get; set; }
         [Required(ErrorMessage = "Поле должно быть установлено")]
         [Display(Name = "Стоимость")]
+        [Range(0, 10000000)]
         public float Price { get; set; }
         [Required(ErrorMessage = "Поле должно быть установлено")]
         [Display(Name = "Количество")]

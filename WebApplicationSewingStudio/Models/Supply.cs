@@ -20,6 +20,7 @@ namespace WebApplicationSewingStudio.Models
         public int Quantity { get; set; }
         [Required(ErrorMessage = "Поле должно быть установлено")]
         [Display(Name = "Стоимость")]
+        [Range(0, 1000000000)]
         public float Price { get; set; }
         [Required(ErrorMessage = "Поле должно быть установлено")]
         [DataType(DataType.Date)]

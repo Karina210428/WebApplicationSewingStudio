@@ -16,6 +16,7 @@ namespace WebApplicationSewingStudio.Models
         public String Name { get; set; }
         [Display(Name = "Стоимость")]
         [Required(ErrorMessage = "Поле должно быть установлено")]
+        [Range(0, 100000000)]
         public double Price { get; set; }
         public ICollection<Order> Orders { get; set; }
         public ICollection<ProductComposition> ProductCompositions { get; set; }
